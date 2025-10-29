@@ -26,23 +26,28 @@ int main() {
 
     std::cout << staticWelcomeMessage << "\n";
 
+    std::cout << "\n Address of welcome message: " << &staticWelcomeMessage << "\n";
+
     std::cout << "Guess the Animal! (1: Dog, 2: Cat, 3: Bird, 4: Fish)\n";
     std::cout << "Enter 0 to quit.\n";
 
     AnimalUtil::Animal* mysteryAnimal;
 
     // Error #1 - see question #1
-    std::cout << "The animal is initialized to: " << AnimalUtil::toStr(*mysteryAnimal) << "\n";
+    // std::cout << "The animal is initialized to: " << AnimalUtil::toStr(*mysteryAnimal) << "\n";
     
     // Error #2 - see question #2
     mysteryAnimal = nullptr;
-    std::cout << "The animal should initally be nothing: " << AnimalUtil::toStr(*mysteryAnimal) << "\n";
+    // std::cout << "The animal should initally be nothing: " << AnimalUtil::toStr(*mysteryAnimal) << "\n";
     
     // Error #3 - Figure it out.
     while (true) {
+        delete mysteryAnimal; // Added this line into the code to fix memory leak.
         mysteryAnimal =
             new AnimalUtil::Animal(static_cast<AnimalUtil::Animal>(1 + std::rand() % 4));
-
+        std::cout << "\n mysteryAnimal pointer address:        " << &mysteryAnimal;
+        std::cout << "\n Address mysteryAnimal is pointing to: " << mysteryAnimal;
+        std::cout << "\n Value located at address pointed to:  " << *mysteryAnimal;
         std::cout << "\nYour guess: ";
         int guess = -1;
         if (!(std::cin >> guess)) {
